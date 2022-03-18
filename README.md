@@ -1,7 +1,7 @@
 <h1>
-    An example loading spinner with just html, css and jquery.
+    An example loading spinner with just html, css and jquery
 </h1>
 
 <h3>
-    <a href="#">Demo</a>
+    <a href="https://argenisosorio.github.io/spinner-loading-jquery-ajax/">Demo</a>
 <h1>
