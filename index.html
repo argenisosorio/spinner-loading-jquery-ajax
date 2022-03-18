@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <title>XXX</title>
+  <meta charset="UTF-8">
+  <script src="jquery/jquery-1.12.4.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="styles.css" type="text/css"/>
+  </head>
+  <style>
+  p {
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma, Sans-Serif;
+    margin-top: 50px;
+  }
+  .spinner {
+    border: 5px solid rgba(0, 0, 0, 0.3);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #7d47ff;
+    margin: 0 auto;
+    margin-top: 20px;
+    animation: spin 1s ease infinite;
+  }
+  @keyframes spin {
+    0% {
+    transform: rotate(0deg);
+    }
+    100% {
+    transform: rotate(360deg);
+    }
+  }
+  </style>
+<body>
+  <script type="text/javascript">
+  $(document).ready(function () {
+    $("#boton").click(function () {
+      $('#datos').html('<center><div class="spinner"></div></center>')
+      $.ajax({
+        url: "https://www.googleapis.com/books/v1/volumes?q=intitle:javascript"
+      }).done(function (data) {
+        sleep(5000) // Solo se usa para ver el spinner más tiempo en el ejemplo.
+        $('#datos').html("")
+        for (var i = 0; i < data.items.length; i++) {
+          var libro = data.items[i].volumeInfo;
+          var autor = libro.authors  
+          if(autor == undefined)
+            autor = "?"
+          $('#datos').append("<div><h4>"+(i+1)+") "+libro.title + "</h4> - <span> Autor/es: "+autor+"</span></div>")
+        }
+      });
+    })
+  })
+  function sleep(milisegundos) {
+    var comienzo = new Date().getTime();
+    while (true) {
+      if ((new Date().getTime() - comienzo) > milisegundos)
+      break;
+    }
+  }
+  </script>
+  <button id='boton'>Buscar libros JS</button>
+  <div id='datos'></div>
+</body>
+</html>
